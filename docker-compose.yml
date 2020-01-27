@@ -90,10 +90,8 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning
-    environment:
-      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
-      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
-      - GF_USERS_ALLOW_SIGN_UP=false
+    env_file:
+    - config
     restart: unless-stopped
     expose:
       - 3000
@@ -123,9 +121,8 @@ services:
       - "9091:9091"
     volumes:
       - ./caddy:/etc/caddy
-    environment:
-      - ADMIN_USER=${ADMIN_USER:-admin}
-      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+    env_file:
+    - config
     restart: unless-stopped
     networks:
       - monitor-net

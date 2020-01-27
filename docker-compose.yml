@@ -111,6 +111,17 @@ services:
     labels:
       org.label-schema.group: "monitoring"
 
+  blackbox-local:
+    image: prom/blackbox-exporter:v0.16.0
+    container_name: blackbox-local
+    restart: unless-stopped
+    expose:
+      - 9115
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "monitoring"
+
   caddy:
     image: stefanprodan/caddy
     container_name: caddy
